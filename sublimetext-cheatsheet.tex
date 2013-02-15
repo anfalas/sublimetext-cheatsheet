@@ -1,0 +1,237 @@
+\makeatletter\def\input@path{{applekeys/}}\makeatother
+\PassOptionsToPackage{table}{xcolor}
+\documentclass[10pt,a4paper,landscape]{article}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage{titlesec}
+\usepackage{graphicx}
+\usepackage{ stmaryrd }
+\usepackage{tikz}
+\usetikzlibrary{shadows, calc}
+%\usepackage[table]{xcolor}
+%-----------------------------------------------------------------------
+
+% Sublime Text 2 cheat sheet
+
+% This sheet is meant to be compiled with pdflatex.
+
+% This code is based on the LaTeX cheat sheet found here :
+% http://www.stdout.org/~winston/latex/
+% by Winston Chang
+
+% Licensed under Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+
+%-----------------------------------------------------------------------
+% Change default fonts for the document
+%
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[scaled]{helvet}
+\renewcommand*\familydefault{\sfdefault}
+\renewcommand*\ttdefault{txtt}
+%-----------------------------------------------------------------------
+
+% Setting the margins at 1cm everywhere
+\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} 
+
+% Turn off header and footer
+\pagestyle{empty}
+ 
+\makeatletter
+
+\newcommand{\vcenteredinclude}[2]{\begingroup
+\setbox0=\hbox{\includegraphics[#2]{#1}}%
+\parbox{\wd0}{\box0}\endgroup}
+
+\newcommand*\keystroke[1]{%
+  \tikz[baseline=(key.base)]
+    \node[%
+      draw,
+      fill=white,
+      drop shadow={shadow xshift=0.25ex,shadow yshift=-0.25ex,fill=black,opacity=0.75},
+      rectangle,
+      rounded corners=2pt,
+      inner sep=1pt,
+      line width=0.5pt,
+      font=\scriptsize\sffamily
+    ](key) {~#1~\strut}
+  ;
+}
+
+% Don't print section numbers
+\setcounter{secnumdepth}{0}
+
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+\titleformat{\section}[block]%              
+    {\tikz[overlay] \shade[left color=gray!10,right color=gray] (0,-1ex) rectangle (\linewidth,1.5em); \Large}%    
+    {\thesection}%                   
+    {1em}%
+    {}
+
+\titleformat{\subsection}[block]%              
+    {\large}%    
+    {\thesubsection}%                   
+    {1em}%
+    {}
+% -----------------------------------------------------------------------
+
+%-----------------------------------------------------------------------
+% Defines a command to easily insert keyboard modifier from pdf images
+%
+\newcommand{\key}[1]{
+  \scalebox{0.012}{\includegraphics{{#1}.pdf}}
+}
+%-----------------------------------------------------------------------
+
+\begin{document}
+
+%\renewcommand{\familydefault}{\sfdefault}
+
+\newcommand{\ret}{\keystroke{$\hookleftarrow$}}
+\newcommand{\shift}{\keystroke{$\Uparrow~$}}
+\newcommand{\alt}{\keystroke{\key{option}}}
+\newcommand{\ctrl}{\keystroke{\key{control}}}
+\newcommand{\cmd}{\keystroke{\key{command}}}
+\newcommand{\up}{\keystroke{$\uparrow$}}
+\newcommand{\down}{\keystroke{$\downarrow$}}
+\newcommand{\leftarr}{\keystroke{$\leftarrow$}}
+\newcommand{\rightarr}{\keystroke{$\rightarrow$}}
+\newcommand{\bkspc}{\keystroke{$\longmapsfrom$}}
+%\newcommand{\ctrl}[1]{\texttt{\keystroke{Ctrl}#1}}
+%\newcommand{\ctrl}[1]{\texttt{\keystroke{\key{control}}#1}}
+
+\raggedright
+\footnotesize
+\begin{multicols}{3}
+
+\begin{center}
+     \vcenteredinclude{sublime_text.png}{width=32pt}\Large{\textbf{ublime Text 2 Cheat Sheet for Mac}} \\
+\end{center}
+
+\rowcolors{1}{gray!20}{white}
+
+All the commands of Sublime Text 2 can be accessed from the command palette.
+
+\section{General}
+\begin{tabular}{p{3cm}p{\linewidth - 3.9cm}}
+\cmd{\shift\keystroke{P}} & \textbf{Command palette} \\
+\ctrl{\keystroke{`}}  & Console \\
+\cmd{\keystroke{,}} & (User) Preferences \\
+\cmd{\keystroke{F}} & Full Screen Mode \\
+\cmd{\shift\keystroke{F}} & Distraction-Free Mode \\
+\cmd{\keystroke{K} - \keystroke{B}}  & Toggle side bar \\
+\cmd{\keystroke{B}}  & Build \\
+\end{tabular}
+
+\section{File Navigation}
+\begin{tabular}{p{3cm}p{\linewidth - 3.9cm}}
+\cmd{\keystroke{P}}  & Go to anything \\
+\cmd{\keystroke{T}}  & Go to file \\
+\cmd{\alt \rightarr}  & Next file \\
+\cmd{\alt \leftarr}  & Previous file \\
+\cmd{\keystroke{R}}  & Go to symbol/method (\verb|@|) \\
+\cmd{\keystroke{;}}  & Go to word  (\verb|#|)\\
+\ctrl{\keystroke{G}}  & Go to line number (\verb|:|) \\
+\cmd{\shift\keystroke{N}} & New window/project \\
+\end{tabular}
+
+\section{Code Navigation}
+\begin{tabular}{p{3cm}p{\linewidth - 3.9cm}}
+\cmd{\leftarr}  & End of line \\
+\cmd{\rightarr}  & Beginning of line \\
+\cmd{\up}  & Top of file \\
+\cmd{\down}  & Bottom of file \\
+\alt{\rightarr}  & Next word \\
+\alt{\leftarr}  & Previous word \\
+\end{tabular}
+
+\section{Splits/Tabs}
+\begin{tabular}{p{3cm}p{\linewidth - 3.9cm}}
+\cmd{\alt \keystroke{1}} & Single Column\\
+\cmd{\alt \keystroke{[2,3,4]}} & 2,3,4 Columns\\
+\cmd{\alt \keystroke{5}} & Grid \\
+\ctrl{\keystroke{[1,2,3,4]}} & Focus group \\
+\ctrl{\shift \keystroke{[1,2,3,4]}} & Move file to group \\
+\cmd{\keystroke{[1,2,3...]}} & Select tab \\
+\end{tabular}
+
+\section{Selection}
+\begin{tabular}{p{3cm}p{\linewidth - 3.9cm}}
+\cmd{\keystroke{L}} & Select line (repeat select next lines) \\
+\ctrl{\shift \keystroke{M}} & Select all between brackets \\
+\cmd{\keystroke{D}} & Select word (repeat select others occurrences in context for multiple editing)\\
+\cmd{\ctrl \keystroke{G}} & Select all occourencies of word \\
+\ctrl{\shift \up} & Select column upwards \\
+\ctrl{\shift \down} & Select column downwards \\
+\alt (mouse-drag) & Select column \\
+\alt \shift \up & Insert selection cursor one line up \\
+\alt \shift \down & Insert selection cursor one line down \\
+\end{tabular}
+
+\section{Code Editing}
+\begin{tabular}{p{3cm}p{\linewidth - 3.9cm}}
+\cmd{\keystroke{X}} & Delete line \\
+\cmd{\ret} & Insert line after \\
+\cmd{\shift \ret} & Insert line before \\
+\cmd{\shift \keystroke{D}} & Duplicate line(s) \\
+\cmd{\keystroke{J}} & Join line(s) \\
+\cmd{\keystroke{/}} & Toggle comment for current line/selection \\
+\cmd{\alt \keystroke{/}} & Toogle block comment \\
+\ctrl{\keystroke{M}} & Jump/switch between matching brackets \\
+\ctrl{\shift \keystroke{K}} & Delete line(s) \\
+\cmd{\keystroke{K} - \keystroke{K}} & Delete from cursor to end of line \\
+\cmd{\keystroke{K} - \bkspc} & delete from cursor to start of line \\
+\cmd{\keystroke{K} - \keystroke{U}}  & Uppercase currend word or selection \\
+\cmd{\keystroke{K} - \keystroke{L}}  & Lowercase currend word or selection \\
+\ctrl{\shift \up}  & Move line/selection up \\
+\ctrl{\shift \down}  & Move line/selection down \\
+\cmd{\keystroke{]}} & Indent current line(s) \\
+\cmd{\keystroke{[}} & Unindent current line(s) \\
+\cmd{\shift \keystroke{V}} & Paste and indent correctly \\
+\cmd{\keystroke{Y}} & Redo or repeat \\
+\ctrl{\keystroke{~~Space~~}} & Autocomplete (repeat to select next suggestion) \\
+\cmd{\keystroke{U}} & Soft undo (movement undo) \\
+\cmd{\shift \keystroke{U}} & Soft redo (movement redo) \\
+\end{tabular}
+
+\section{Find/Replace}
+\begin{tabular}{p{3cm}p{\linewidth - 3.9cm}}
+\cmd{\keystroke{F}} & Find \\
+\cmd{\alt \keystroke{F}} & Find and replace \\
+\cmd{\keystroke{G}} & Find next \\
+\cmd{\shift \keystroke{G}} & Find previous \\
+\cmd{\alt \keystroke{G}} & Find next occurrence of current selected word \\
+\cmd{\ctrl \keystroke{G}} & Select all occurrences of current word for multiple editing \\
+\cmd{\keystroke{I}} & Incremental find \\
+\cmd{\shift \keystroke{F}} & Find in files \\
+\end{tabular}
+
+\section{Bookmarks}
+\begin{tabular}{p{3cm}p{\linewidth - 3.9cm}}
+\cmd{\keystroke{F2}}  & Toggle bookmark \\
+\keystroke{F2} & Next bookmark \\
+\shift \keystroke{F2} & Previous bookmark \\
+\ctrl{\shift \keystroke{F2}} & Clear bookmarks
+\end{tabular}
+
+\rule{\linewidth}{0.25pt}
+\scriptsize
+
+Copyright \copyright\ 2013 Gregor Longariva
+
+http://blogs.fau.de/faumac
+
+
+
+
+Credits to: http://pragamticstudio.com, http://www.gsmproductions.org/misc/sublime.html and https://gist.github.com/lucasfais/1207002
+
+\end{multicols}
+\end{document}
